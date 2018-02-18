@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ConstraindLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.com.cristianodp.vocabularylist.views.CollectionActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabSaveCollection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="35dp"
+        android:clickable="true"
+        app:elevation="0dp"
+        app:fabSize="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar2"
+        app:srcCompat="@drawable/ic_done_black_24dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabCancCollection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:clickable="true"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="@+id/fabSaveCollection"
+        app:layout_constraintEnd_toStartOf="@+id/fabSaveCollection"
+        app:layout_constraintTop_toTopOf="@+id/fabSaveCollection"
+        app:srcCompat="@drawable/ic_close_black_24dp" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/containerCollection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/collection_public"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/toggleButtonPublic"
+            app:layout_constraintEnd_toStartOf="@+id/toggleButtonPublic"
+            app:layout_constraintTop_toTopOf="@+id/toggleButtonPublic" />
+
+        <ToggleButton
+            android:id="@+id/toggleButtonPublic"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/collection_public"
+            android:textOff="@string/collection_public_no"
+            android:textOn="@string/collection_public_yes"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/conatinerSubtitle"
+            app:layout_constraintTop_toBottomOf="@+id/conatinerSubtitle" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/conatinerSubtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/containerTitle"
+            app:layout_constraintStart_toStartOf="@+id/containerTitle"
+            app:layout_constraintTop_toBottomOf="@+id/containerTitle">
+
+            <EditText
+                android:id="@+id/editTextSubtile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/collection_detail" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/containerTitle"
+            android:layout_width="368dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <EditText
+                android:id="@+id/editTextTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/collection_mane" />
+        </android.support.design.widget.TextInputLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabAddLesson"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/recycleViewLessons"
+        app:srcCompat="@drawable/ic_add_black_24dp" />
+
+<android.support.v7.widget.RecyclerView
+    android:id="@+id/recycleViewLessons"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/containerCollection" >
+
+</android.support.v7.widget.RecyclerView>
+
+</android.support.constraint.ConstraintLayout>

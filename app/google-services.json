@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "71219011573",
+    "firebase_url": "https://vocabularylist-93f4c.firebaseio.com",
+    "project_id": "vocabularylist-93f4c",
+    "storage_bucket": "vocabularylist-93f4c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:71219011573:android:66488140a8e23889",
+        "android_client_info": {
+          "package_name": "br.com.cristianodp.vocabularylist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "71219011573-imrrd7js4ijpo375qpjsreav506fgdhd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRk8YQXqQfse6ywiYJucBo6N8jiDVlFew"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
