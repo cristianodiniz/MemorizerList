@@ -1,6 +1,6 @@
 package br.com.cristianodp.vocabularylist.ado
 
-import br.com.cristianodp.vocabularylist.models.Classification
+import br.com.cristianodp.vocabularylist.models.CollectionLesson
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.FirebaseDatabase
 import java.util.ArrayList
@@ -8,26 +8,26 @@ import java.util.ArrayList
 /**
  * Created by crist on 18/02/2018.
  */
-class ClassificationADO(override var path: String, override var typeListner: String, override var dataChange: IFirebaseDatadaseADO.IDataChange) :IFirebaseDatadaseADO<Classification> {
+class CollectionADO(override var path: String, override var typeListner: IFirebaseDatabaseADO.TypeListner, override var dataChange: IFirebaseDatabaseADO.IDataChange) : IFirebaseDatabaseADO<CollectionLesson> {
 
-    var list: ArrayList<Classification>
+    var list: ArrayList<CollectionLesson>
     init{
-        list = ArrayList<Classification>()
-        if (typeListner == "CHILD"){
+        list = ArrayList<CollectionLesson>()
+        if (typeListner == IFirebaseDatabaseADO.TypeListner.MULTIPLE){
             initDatabaseChildListener()
         }else{
             initDatabaseValueListener()
         }
     }
 
-    override fun removeList(item: Classification?) {
+    override fun removeList(item: CollectionLesson?) {
         if (item != null) {
             val oldMov = list.filter { it-> it.keyId == item.keyId}[0]
             list.remove(oldMov)
         }
     }
 
-    override fun updateList(item: Classification?) {
+    override fun updateList(item: CollectionLesson?) {
         if (item != null) {
             try {
                 val oldMov = list.filter { it-> it.keyId == item.keyId}[0]
@@ -39,9 +39,9 @@ class ClassificationADO(override var path: String, override var typeListner: Str
         }
     }
 
-    override fun processSnapshot(snapshot: DataSnapshot?): Classification? {
+    override fun processSnapshot(snapshot: DataSnapshot?): CollectionLesson? {
         if (snapshot != null) {
-            snapshot.getValue(Classification::class.java)?.let{ item ->
+            snapshot.getValue(CollectionLesson::class.java)?.let{ item ->
                 return item
             }
         }
@@ -49,7 +49,7 @@ class ClassificationADO(override var path: String, override var typeListner: Str
 
     }
 
-    override fun push(item: Classification): Boolean {
+    override fun push(item: CollectionLesson): Boolean {
         if (item.isValid()){
             val mFirebaseDatabase = FirebaseDatabase.getInstance()
             val mMovtoDatabaseReference = mFirebaseDatabase.getReference(path)
@@ -64,12 +64,7 @@ class ClassificationADO(override var path: String, override var typeListner: Str
         }
     }
 
-    override fun genereteId():String {
-        return FirebaseDatabase.getInstance().reference.push().key
-    }
-
-
-    override fun getValue(): Classification? {
+    override fun getValue(): CollectionLesson? {
         if (list.size > 0){
             return list[0]
         }

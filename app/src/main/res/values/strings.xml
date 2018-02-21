@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Memorizer</string>
     <string name="title_activity_lessons">Lessons</string>
-    <string name="lesson_maintenance_description">Maintenance Lesson</string>
+
     <string name="card_front_side">Front Side</string>
     <string name="card_back_side">Back Side</string>
 
@@ -10,13 +10,29 @@
     <string name="tab_library">Library</string>
     <string name="tab_add">Add</string>
 
-    <string name="menu_dashboard_search">Search</string>
+    /*Dashboard Activity*/
+    <string name="menu_dashboard_logoff">Logoff</string>
 
+    /*Collection Activity*/
+    <string name="collection_description">Collection</string>
     <string name="collection_mane">Name</string>
     <string name="collection_detail">Detail</string>
     <string name="collection_public">Public</string>
     <string name="collection_public_yes">Yes</string>
     <string name="collection_public_no">No</string>
+
+    /*Lesson Maintenance Activity*/
+    <string name="lesson_maintenance_description">Lesson</string>
+
+    /*Lesson Play Activity*/
+    <string name="lesson_play_description">Lesson</string>
+
+    /*Home*/
+    <string name="home_lessons">Lessons</string>
+
+
+    /*menus*/
+    <string name="menu_standar_edit">Edit  </string>
 
 
     <array name="menuOptions">
@@ -30,4 +46,11 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
+    <string name="title_activity_lesson_play">LessonPlayActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

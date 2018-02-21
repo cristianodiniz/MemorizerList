@@ -27,7 +27,7 @@
                     android:id="@+id/app_bar_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@android:drawable/sym_def_app_icon"
+                    android:src="@drawable/banner_memorizer"
                     android:scaleType="centerCrop" />
 
                 <android.support.v7.widget.Toolbar
@@ -62,6 +62,24 @@
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
     </android.support.design.widget.CoordinatorLayout>
+
+    <com.luseen.spacenavigation.SpaceNavigationView
+        android:id="@+id/spaceNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        app:active_item_color="@color/colorAccent"
+        app:centre_button_color="@color/centre_button_color"
+        app:centre_button_icon="@drawable/ic_library_add_black_24dp"
+        app:inactive_item_color="@color/white_with_alpha"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:space_background_color="@color/colorPrimary"
+        app:space_item_icon_only_size="@dimen/space_item_icon_only_size"
+        app:space_item_icon_size="@dimen/space_item_icon_default_size"
+        app:space_item_text_size="@dimen/space_item_text_default_size" />
+<!--
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/navigation"
             android:layout_width="0dp"
@@ -73,5 +91,5 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:menu="@menu/navigation" />
-
+-->
 </android.support.constraint.ConstraintLayout>

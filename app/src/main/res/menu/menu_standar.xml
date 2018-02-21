@@ -3,10 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/mmu_logoff"
-        android:checkable="false"
-        android:icon="@drawable/ic_exit_to_app_black_24dp"
-        android:title="@string/menu_dashboard_logoff"
+        android:id="@+id/mn_stand_edit"
+        android:checked="false"
+        android:title="@string/menu_standar_edit"
+        app:actionLayout="@layout/switch_item_menu"
         app:showAsAction="always|withText" />
-
 </menu>

@@ -9,9 +9,9 @@ import com.google.firebase.database.*
  * Created by crist on 25/01/2018.
  */
 
-interface IFirebaseDatadaseADO<T>{
+interface IFirebaseDatabaseADO<T>{
     var path:String
-    var typeListner:String
+    var typeListner:TypeListner
     var dataChange:IDataChange
     fun initDatabaseChildListener() {
 
@@ -80,8 +80,6 @@ interface IFirebaseDatadaseADO<T>{
 
     fun push(item: T):Boolean
 
-    fun genereteId():String
-
     fun getValue():T?
 
     fun processSnapshot(snapshot: DataSnapshot?):T?
@@ -90,6 +88,13 @@ interface IFirebaseDatadaseADO<T>{
         fun notifyDataChanged()
     }
 
-
+    enum class TypeListner {
+        SINGLE, MULTIPLE
+    }
 
 }
+
+fun generateFirebaseId():String{
+    return FirebaseDatabase.getInstance().reference.push().key
+}
+

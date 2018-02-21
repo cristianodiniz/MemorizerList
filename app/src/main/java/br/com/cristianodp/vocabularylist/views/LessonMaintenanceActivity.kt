@@ -6,16 +6,15 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.View
-import android.widget.TextView
 import br.com.cristianodp.vocabularylist.R
 import br.com.cristianodp.vocabularylist.adapters.RecyclerCardAdapter
-import br.com.cristianodp.vocabularylist.adapters.RecyclerLessonAdapter
 import br.com.cristianodp.vocabularylist.ado.CardADO
-import br.com.cristianodp.vocabularylist.ado.IFirebaseDatadaseADO
+import br.com.cristianodp.vocabularylist.ado.IFirebaseDatabaseADO
 import br.com.cristianodp.vocabularylist.ado.LessonADO
+import br.com.cristianodp.vocabularylist.ado.generateFirebaseId
+import br.com.cristianodp.vocabularylist.global.getPathCard
 import br.com.cristianodp.vocabularylist.global.getPathCards
 import br.com.cristianodp.vocabularylist.global.getPathLesson
 import br.com.cristianodp.vocabularylist.models.Card
@@ -25,6 +24,7 @@ import kotlinx.android.synthetic.main.activity_lesson_maintenance.*
 class LessonMaintenanceActivity : AppCompatActivity() {
 
     private lateinit var userId:String
+    private lateinit var collectionId:String
     private lateinit var lessonId:String
     private lateinit var mLessonADO:LessonADO
     private lateinit var mLesson:Lesson
@@ -36,15 +36,16 @@ class LessonMaintenanceActivity : AppCompatActivity() {
         setContentView(R.layout.activity_lesson_maintenance)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         userId = intent.getStringExtra("userId")
+        collectionId = intent.getStringExtra("collectionId")
         lessonId = intent.getStringExtra("lessonId")
-        mLesson = Lesson(lessonId)
+        mLesson = Lesson(lessonId,collectionId)
 
         intListners()
         showButtonsEditDescription(false)
     }
 
     private fun intListners() {
-        mLessonADO = LessonADO(getPathLesson(userId,lessonId),"SINGLE",object:IFirebaseDatadaseADO.IDataChange{
+        mLessonADO = LessonADO(getPathLesson(userId,collectionId,lessonId),IFirebaseDatabaseADO.TypeListner.SINGLE,object: IFirebaseDatabaseADO.IDataChange{
             override fun notifyDataChanged() {
                 if (mLessonADO.getValue() != null){
                     mLesson.description = mLessonADO.getValue()!!.description
@@ -53,16 +54,15 @@ class LessonMaintenanceActivity : AppCompatActivity() {
             }
         })
 
-        recyclerView.setLayoutManager(LinearLayoutManager(this@LessonMaintenanceActivity))
-        mCardADO = CardADO(getPathCards(userId,lessonId),"CHILD",object :IFirebaseDatadaseADO.IDataChange{
+        recyclerView.layoutManager = LinearLayoutManager(this@LessonMaintenanceActivity)
+        mCardADO = CardADO(getPathCards(userId,collectionId,lessonId),IFirebaseDatabaseADO.TypeListner.MULTIPLE,object : IFirebaseDatabaseADO.IDataChange{
             override fun notifyDataChanged() {
                 mRecyclerCardAdapter = RecyclerCardAdapter(this@LessonMaintenanceActivity,mCardADO.list,object : RecyclerCardAdapter.OnItemClickListener{
                     override fun onItemClick(item: Card) {
-                        val i = Intent(this@LessonMaintenanceActivity,CardActivity::class.java)
-                        i.putExtra("userId",userId)
-                        i.putExtra("lessonId",lessonId)
-                        i.putExtra("cardId",item.keyId)
-                        startActivity(i)
+
+                        CardDialog(this@LessonMaintenanceActivity
+                                ,getPathCard(userId,collectionId,item.lessonId, item.keyId)
+                                ,Card(generateFirebaseId(),item.lessonId))
 
                     }
                 })
@@ -103,11 +103,10 @@ class LessonMaintenanceActivity : AppCompatActivity() {
         }
 
         floatingActionButtonAdd.setOnClickListener {
-            val i = Intent(this@LessonMaintenanceActivity,CardActivity::class.java)
-            i.putExtra("userId",userId)
-            i.putExtra("lessonId",lessonId)
-            i.putExtra("cardId",mLessonADO.genereteId())
-            startActivity(i)
+            CardDialog(this@LessonMaintenanceActivity
+                    ,getPathCard(userId,collectionId,lessonId, generateFirebaseId())
+                    ,Card(generateFirebaseId(),lessonId))
+
         }
 
     }

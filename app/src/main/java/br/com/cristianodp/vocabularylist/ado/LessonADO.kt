@@ -1,7 +1,5 @@
 package br.com.cristianodp.vocabularylist.ado
 
-import android.os.Build
-import android.support.annotation.RequiresApi
 import android.util.Log
 import br.com.cristianodp.vocabularylist.models.Lesson
 import com.google.firebase.database.DataSnapshot
@@ -10,12 +8,12 @@ import com.google.firebase.database.FirebaseDatabase
 /**
  * Created by crist on 06/02/2018.
  */
-class LessonADO(override var path: String, override var typeListner: String, override var dataChange: IFirebaseDatadaseADO.IDataChange):IFirebaseDatadaseADO<Lesson>{
+class LessonADO(override var path: String, override var typeListner: IFirebaseDatabaseADO.TypeListner, override var dataChange: IFirebaseDatabaseADO.IDataChange): IFirebaseDatabaseADO<Lesson>{
 
     var list: ArrayList<Lesson>
     init{
         list = ArrayList<Lesson>()
-        if (typeListner == "CHILD"){
+        if (typeListner == IFirebaseDatabaseADO.TypeListner.MULTIPLE){
             initDatabaseChildListener()
         }else{
             initDatabaseValueListener()
@@ -74,12 +72,6 @@ class LessonADO(override var path: String, override var typeListner: String, ove
             Log.e("LessonADO->push",e.toString())
             return false
         }
-    }
-
-
-
-    override fun genereteId():String {
-        return FirebaseDatabase.getInstance().reference.push().key
     }
 
     override fun getValue():Lesson?{

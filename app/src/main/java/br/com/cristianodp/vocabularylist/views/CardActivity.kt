@@ -7,7 +7,7 @@ import android.text.TextWatcher
 import android.view.MenuItem
 import br.com.cristianodp.vocabularylist.R
 import br.com.cristianodp.vocabularylist.ado.CardADO
-import br.com.cristianodp.vocabularylist.ado.IFirebaseDatadaseADO
+import br.com.cristianodp.vocabularylist.ado.IFirebaseDatabaseADO
 import br.com.cristianodp.vocabularylist.global.getPathCard
 import br.com.cristianodp.vocabularylist.models.Card
 import kotlinx.android.synthetic.main.activity_card.*
@@ -16,6 +16,7 @@ class CardActivity : AppCompatActivity() {
 
     private lateinit var userId:String
     private lateinit var lessonId:String
+    private lateinit var collectionId:String
     private lateinit var cardId:String
 
     private lateinit var mCardADO:CardADO
@@ -26,6 +27,7 @@ class CardActivity : AppCompatActivity() {
         setContentView(R.layout.activity_card)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         userId = intent.getStringExtra("userId")
+        collectionId = intent.getStringExtra("collectionId")
         lessonId = intent.getStringExtra("lessonId")
         cardId = intent.getStringExtra("cardId")
         mCard = Card(cardId,lessonId)
@@ -38,7 +40,7 @@ class CardActivity : AppCompatActivity() {
     }
 
     private fun intListners() {
-        mCardADO = CardADO(getPathCard(userId,lessonId,cardId),"VALUE",object :IFirebaseDatadaseADO.IDataChange{
+        mCardADO = CardADO(getPathCard(userId,collectionId,lessonId,cardId),IFirebaseDatabaseADO.TypeListner.SINGLE,object : IFirebaseDatabaseADO.IDataChange{
             override fun notifyDataChanged() {
                 if (mCardADO.getValue() != null){
                     mCard = mCardADO.getValue()!!

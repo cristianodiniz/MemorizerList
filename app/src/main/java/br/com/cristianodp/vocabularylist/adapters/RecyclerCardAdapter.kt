@@ -23,18 +23,17 @@ import java.util.*
 class RecyclerCardAdapter(var context: Context,var data:List<Card>, var listener:OnItemClickListener) : RecyclerView.Adapter<RecyclerCardAdapter.ViewHolder>() {
 
     var side:Int
+    var isEditable:Boolean = false
     //speech
     private lateinit var textToSpeech: TextToSpeech
     init {
         side = 0
         Log.v("e","eeee")
 
-        textToSpeech = TextToSpeech(context,object:TextToSpeech.OnInitListener{
-            override fun onInit(status: Int) {
-                if(status != TextToSpeech.ERROR){
-                    textToSpeech.setLanguage(Locale.UK)
-                    textToSpeech.setSpeechRate(0.5f)
-                }
+        textToSpeech = TextToSpeech(context, TextToSpeech.OnInitListener { status ->
+            if(status != TextToSpeech.ERROR){
+                textToSpeech.language = Locale.UK
+                textToSpeech.setSpeechRate(0.5f)
             }
         })
 
@@ -54,7 +53,7 @@ class RecyclerCardAdapter(var context: Context,var data:List<Card>, var listener
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         if (holder != null){
             side = 0
-            holder.textViewTitle.setText(data.get(position).word)
+            holder.textViewTitle.text = data[position].word
             holder.cardContainer.setBackgroundColor(context.resources.getColor(R.color.colorFrontSide))
 
             holder.imageButtonSpeech.setOnClickListener {
@@ -68,22 +67,20 @@ class RecyclerCardAdapter(var context: Context,var data:List<Card>, var listener
 
             holder.cardContainer.setOnClickListener {
                 if (side == 0){
-                    holder.textViewTitle.setText(data.get(position).word)
+                    holder.textViewTitle.text = data[position].word
                     holder.cardContainer.setBackgroundColor(context.resources.getColor(R.color.colorFrontSide))
                     side = 1
                 }else{
-                    holder.textViewTitle.setText(data.get(position).definition)
+                    holder.textViewTitle.text = data[position].definition
                     holder.cardContainer.setBackgroundColor(context.resources.getColor(R.color.colorBackSide))
                     side = 0
                 }
             }
 
-            holder.cardContainer.setOnLongClickListener(object :View.OnLongClickListener{
-                override fun onLongClick(v: View?): Boolean {
-                    listener.onItemClick(data.get(position))
-                    return true
-                }
-            })
+            holder.cardContainer.setOnLongClickListener {
+                listener.onItemClick(data[position])
+                true
+            }
         }
     }
 

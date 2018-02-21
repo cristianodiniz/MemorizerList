@@ -1,9 +1,6 @@
 package br.com.cristianodp.vocabularylist.ado
 
-import android.os.Build
-import android.support.annotation.RequiresApi
 import br.com.cristianodp.vocabularylist.models.Card
-import br.com.cristianodp.vocabularylist.models.Lesson
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.FirebaseDatabase
 import java.util.ArrayList
@@ -11,12 +8,12 @@ import java.util.ArrayList
 /**
  * Created by crist on 06/02/2018.
  */
-class CardADO(override var path: String, override var typeListner: String, override var dataChange: IFirebaseDatadaseADO.IDataChange) :IFirebaseDatadaseADO<Card> {
+class CardADO(override var path: String, override var typeListner: IFirebaseDatabaseADO.TypeListner, override var dataChange: IFirebaseDatabaseADO.IDataChange) : IFirebaseDatabaseADO<Card> {
 
     var list: ArrayList<Card>
     init{
         list = ArrayList<Card>()
-        if (typeListner == "CHILD"){
+        if (typeListner == IFirebaseDatabaseADO.TypeListner.MULTIPLE){
             initDatabaseChildListener()
         }else{
             initDatabaseValueListener()
@@ -66,11 +63,6 @@ class CardADO(override var path: String, override var typeListner: String, overr
             return false
         }
     }
-
-    override fun genereteId():String {
-        return FirebaseDatabase.getInstance().reference.push().key
-    }
-
 
     override fun getValue(): Card? {
         if (list.size > 0){
