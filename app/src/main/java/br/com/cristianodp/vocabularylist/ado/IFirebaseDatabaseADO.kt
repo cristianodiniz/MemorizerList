@@ -80,6 +80,16 @@ interface IFirebaseDatabaseADO<T>{
 
     fun push(item: T):Boolean
 
+    //fun erase():Boolean
+    fun erase(): Boolean {
+        val mFirebaseDatabase = FirebaseDatabase.getInstance()
+        val mDatabaseReference = mFirebaseDatabase.getReference(path)
+
+        mDatabaseReference.removeValue()
+
+        return true
+    }
+
     fun getValue():T?
 
     fun processSnapshot(snapshot: DataSnapshot?):T?

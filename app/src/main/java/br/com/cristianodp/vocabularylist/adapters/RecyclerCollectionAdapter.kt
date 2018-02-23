@@ -50,10 +50,7 @@ class RecyclerCollectionAdapter(var data:List<CollectionLesson>, var listener:On
             holder.textViewSubTitle.text = item.detail
             holder.textViewTotal.setText(item.totLessons.toString())
             holder.progressBar.progress = item.percDone
-            holder.imageButtonAction.visibility = View.GONE
-            holder.imageButtonAction.setOnClickListener {
 
-            }
             holder.viewRow.setOnLongClickListener(object :View.OnLongClickListener{
                 override fun onLongClick(v: View?): Boolean {
                    // holder.imageButtonAction.visibility = View.VISIBLE
@@ -85,7 +82,6 @@ class RecyclerCollectionAdapter(var data:List<CollectionLesson>, var listener:On
         lateinit var textViewTitle : TextView
         lateinit var textViewSubTitle : TextView
         lateinit var textViewTotal: TextView
-        lateinit var imageButtonAction: ImageButton
         lateinit var progressBar: ProgressBar
         lateinit var viewRow: ConstraintLayout
 
@@ -95,7 +91,6 @@ class RecyclerCollectionAdapter(var data:List<CollectionLesson>, var listener:On
                 this.textViewTitle = itemView.findViewById(R.id.textViewTitle)
                 this.textViewSubTitle = itemView.findViewById(R.id.textViewSubTitle)
                 this.textViewTotal = itemView.findViewById(R.id.textViewTotal)
-                this.imageButtonAction = itemView.findViewById(R.id.imageButtonAction)
                 this.progressBar = itemView.findViewById(R.id.progressBar)
                 this.viewRow = itemView.findViewById(R.id.containerView)
             }

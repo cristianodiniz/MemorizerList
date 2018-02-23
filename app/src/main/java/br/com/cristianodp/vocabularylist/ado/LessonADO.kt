@@ -1,6 +1,8 @@
 package br.com.cristianodp.vocabularylist.ado
 
 import android.util.Log
+import br.com.cristianodp.vocabularylist.models.Card
+import br.com.cristianodp.vocabularylist.models.CollectionLesson
 import br.com.cristianodp.vocabularylist.models.Lesson
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.FirebaseDatabase
@@ -42,17 +44,15 @@ class LessonADO(override var path: String, override var typeListner: IFirebaseDa
     }
 
     override fun processSnapshot(snapshot: DataSnapshot?): Lesson? {
-        if (snapshot != null) {
-            try {
-                var value = snapshot.getValue(Lesson::class.java)
-                if (value != null) {
-                    return value
-                }
-            }catch (e:Exception){
-                Log.e("processSnapshot",e.toString())
-            }
 
+        try {
+            snapshot!!.child("detail").getValue(Lesson::class.java)?.let{ item ->
+                return item
+            }
+        }catch (e:Exception){
+            Log.v("LessonADO",e.toString())
         }
+
         return null
 
     }
@@ -65,7 +65,7 @@ class LessonADO(override var path: String, override var typeListner: IFirebaseDa
             if (item.keyId == ""){
                 item.keyId = mMovtoDatabaseReference.push().key
             }
-            mMovtoDatabaseReference.setValue(item)
+            mMovtoDatabaseReference.child("detail").setValue(item)
 
             return true
         }catch (e:Exception){

@@ -1,5 +1,6 @@
 package br.com.cristianodp.vocabularylist.ado
 
+import android.util.Log
 import br.com.cristianodp.vocabularylist.models.CollectionLesson
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.FirebaseDatabase
@@ -40,11 +41,15 @@ class CollectionADO(override var path: String, override var typeListner: IFireba
     }
 
     override fun processSnapshot(snapshot: DataSnapshot?): CollectionLesson? {
-        if (snapshot != null) {
-            snapshot.getValue(CollectionLesson::class.java)?.let{ item ->
+        try {
+            snapshot!!.child("detail").getValue(CollectionLesson::class.java)?.let{ item ->
                 return item
             }
+
+        }catch (e:Exception){
+            Log.v("CollectionADO",e.toString())
         }
+
         return null
 
     }
@@ -52,11 +57,11 @@ class CollectionADO(override var path: String, override var typeListner: IFireba
     override fun push(item: CollectionLesson): Boolean {
         if (item.isValid()){
             val mFirebaseDatabase = FirebaseDatabase.getInstance()
-            val mMovtoDatabaseReference = mFirebaseDatabase.getReference(path)
+            val mDatabaseReference = mFirebaseDatabase.getReference(path)
             if (item.keyId == ""){
-                item.keyId = mMovtoDatabaseReference.push().key
+                item.keyId = mDatabaseReference.push().key
             }
-            mMovtoDatabaseReference.setValue(item)
+            mDatabaseReference.child("detail").setValue(item)
             return true
         }else{
             //Toast.makeText(this,"Preencha todos os campos", Toast.LENGTH_LONG).show()

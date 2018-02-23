@@ -34,7 +34,8 @@
             android:label="@string/title_activity_lesson_play"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".views.SplashScreenActivity">
+        <activity android:name=".views.SplashScreenActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

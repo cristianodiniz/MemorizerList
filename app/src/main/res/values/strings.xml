@@ -21,11 +21,16 @@
     <string name="collection_public_yes">Yes</string>
     <string name="collection_public_no">No</string>
 
+    <string name="dialog_confirm_del_title">Confirm</string>
+    <string name="dialog_confirm_del_msg">Are you sure you want to delete this record?</string>
+
+
     /*Lesson Maintenance Activity*/
     <string name="lesson_maintenance_description">Lesson</string>
 
     /*Lesson Play Activity*/
     <string name="lesson_play_description">Lesson</string>
+    <string name="lesson_play_speak">Speak</string>
 
     /*Home*/
     <string name="home_lessons">Lessons</string>
@@ -33,6 +38,7 @@
 
     /*menus*/
     <string name="menu_standar_edit">Edit  </string>
+    <string name="menu_standar_del">Delete</string>
 
 
     <array name="menuOptions">

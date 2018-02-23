@@ -3,6 +3,7 @@ package br.com.cristianodp.vocabularylist.views
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
@@ -54,7 +55,8 @@ class LessonMaintenanceActivity : AppCompatActivity() {
             }
         })
 
-        recyclerView.layoutManager = LinearLayoutManager(this@LessonMaintenanceActivity)
+        //recyclerView.layoutManager = LinearLayoutManager(this@LessonMaintenanceActivity)
+        recyclerView.layoutManager = GridLayoutManager(this@LessonMaintenanceActivity, 2)
         mCardADO = CardADO(getPathCards(userId,collectionId,lessonId),IFirebaseDatabaseADO.TypeListner.MULTIPLE,object : IFirebaseDatabaseADO.IDataChange{
             override fun notifyDataChanged() {
                 mRecyclerCardAdapter = RecyclerCardAdapter(this@LessonMaintenanceActivity,mCardADO.list,object : RecyclerCardAdapter.OnItemClickListener{
@@ -62,7 +64,7 @@ class LessonMaintenanceActivity : AppCompatActivity() {
 
                         CardDialog(this@LessonMaintenanceActivity
                                 ,getPathCard(userId,collectionId,item.lessonId, item.keyId)
-                                ,Card(generateFirebaseId(),item.lessonId))
+                                ,item)
 
                     }
                 })
@@ -103,9 +105,10 @@ class LessonMaintenanceActivity : AppCompatActivity() {
         }
 
         floatingActionButtonAdd.setOnClickListener {
+            var keyId = generateFirebaseId()
             CardDialog(this@LessonMaintenanceActivity
-                    ,getPathCard(userId,collectionId,lessonId, generateFirebaseId())
-                    ,Card(generateFirebaseId(),lessonId))
+                    ,getPathCard(userId,collectionId,lessonId, keyId)
+                    ,Card(keyId,lessonId))
 
         }
 

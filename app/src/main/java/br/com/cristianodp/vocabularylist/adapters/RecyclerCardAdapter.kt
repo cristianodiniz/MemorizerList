@@ -28,8 +28,6 @@ class RecyclerCardAdapter(var context: Context,var data:List<Card>, var listener
     private lateinit var textToSpeech: TextToSpeech
     init {
         side = 0
-        Log.v("e","eeee")
-
         textToSpeech = TextToSpeech(context, TextToSpeech.OnInitListener { status ->
             if(status != TextToSpeech.ERROR){
                 textToSpeech.language = Locale.UK
@@ -44,7 +42,7 @@ class RecyclerCardAdapter(var context: Context,var data:List<Card>, var listener
         if (parent != null) {
             this.context = parent.context
             var inflater = LayoutInflater.from(parent.context)
-            cell = inflater.inflate(R.layout.card_item_layout,parent,false)
+            cell = inflater.inflate(R.layout.card_item_layout_mini,parent,false)
         }
         return ViewHolder(cell)
     }

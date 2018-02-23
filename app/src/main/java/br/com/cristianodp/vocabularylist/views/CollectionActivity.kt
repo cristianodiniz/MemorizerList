@@ -95,10 +95,7 @@ class CollectionActivity : AppCompatActivity() {
             }
         })
         fabSaveCollection.setOnClickListener {
-            mCollection.name = editTextTitle.text.toString()
-            mCollection.public = toggleButtonPublic.isChecked
-            mCollectionADO.push(mCollection)
-            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
+           saveCollectionData()
 
             //finish()
         }
@@ -137,8 +134,18 @@ class CollectionActivity : AppCompatActivity() {
             }
         })
 
-        toggleButtonPublic.setOnCheckedChangeListener { buttonView, isChecked -> mCollection.public = isChecked }
+        toggleButtonPublic.setOnCheckedChangeListener { buttonView, isChecked ->
+            mCollection.public = isChecked
+            saveCollectionData()
+        }
 
+    }
+
+    private fun saveCollectionData() {
+        mCollection.name = editTextTitle.text.toString()
+        mCollection.public = toggleButtonPublic.isChecked
+        mCollectionADO.push(mCollection)
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
     }
 
     private fun loadField(it: CollectionLesson) {
@@ -155,6 +162,22 @@ class CollectionActivity : AppCompatActivity() {
             }
             R.id.mn_stand_edit -> {
 
+            }
+            R.id.mn_stand_del -> {
+                ConfirmDialog(this@CollectionActivity
+                        ,resources.getString(R.string.dialog_confirm_del_title)
+                        ,resources.getString(R.string.dialog_confirm_del_msg)
+                        ,object :ConfirmDialog.IListenner{
+                    override fun onYes() {
+                        mCollectionADO.erase()
+                        this@CollectionActivity.finish()
+                    }
+
+                    override fun onNo() {
+
+                    }
+
+                })
             }
 
         }

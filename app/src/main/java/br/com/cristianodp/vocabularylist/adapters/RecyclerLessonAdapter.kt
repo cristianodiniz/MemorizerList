@@ -44,7 +44,7 @@ class RecyclerLessonAdapter(var data:List<Lesson>, private var listener:OnItemCl
             if (isEditable) {
                 holder.imageButtonPlay.setImageDrawable(context.resources.getDrawable(R.drawable.ic_edit_black_24dp,context.theme))
             }else{
-                holder.imageButtonPlay.setImageDrawable(context.resources.getDrawable(R.drawable.ic_playlist_play_black_24dp,context.theme))
+                holder.imageButtonPlay.setImageDrawable(context.resources.getDrawable(android.R.drawable.ic_media_play,context.theme))
             }
         }
     }
